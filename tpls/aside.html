@@ -1,0 +1,20 @@
+<li :id="data.id" :class="{'check':data.children==null}">
+	<!--<a v-if="data.children==null">
+		<input type="checkbox" :id="'box'+data.id" v-model="data.checked" :value="data.id" @change="checked(data)"/>
+		<label :for="'box'+data.id">{{data.text}}</label>
+	</a>-->
+	
+	<!--<router-link :to="'/child/'+data.id" v-if="data.children==null">{{data.text}}</router-link>-->
+	<a @click.stop="route(data)" v-if="data.children==null"><span>{{data.text}}</span></a>
+
+	<a :id="'floor'+data.id" @click.stop="toggleMenu($event)" class="list-title" v-if="data.children!=null">
+		<span :id="'span'+data.id" class="ink"></span>
+		<i class="iconfont uce-openfile"></i>
+		<span>{{data.text}}</span>
+		<i class="iconfont" :class="{'uce-plus':!open,'uce-minus':open}"></i>
+	</a>
+	<ul :class="'floor'+data.id" class="submenu" v-if="data.children!=null && open==true">
+		<asidemenu v-for="item in data.children" :data="item" :opentype="false"></asidemenu>
+	</ul>
+	
+</li>

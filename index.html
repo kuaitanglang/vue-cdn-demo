@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<title>Vue单页面应用</title>
+		
+		<!-- 引入样式 -->
+		<!-- BOOTSTRAP STYLES-->
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="library/ele/element.css"> 
+		<link rel="stylesheet" type="text/css" href="fonts/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="css/main.css"/>
+   		
+   		
+		<!--SCRIPTS-->
+		<script src="library/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="library/vue-2.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="library/vue-router-2.7.js" type="text/javascript" charset="utf-8"></script>
+		<!-- BOOTSTRAP SCRIPTS -->
+	    <script src="library/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		
+		<!--util-->
+		<script src="js/util.js" type="text/javascript" charset="utf-8"></script>
+		
+		<!--datas-->
+		<script src="datas/menus.js" type="text/javascript" charset="utf-8"></script>
+		<script src="datas/example.js" type="text/javascript" charset="utf-8"></script>
+		
+		<!-- 引入组件库 -->
+		<script src="library/ele/element.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/components/aside-menu.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/module/example.js" type="text/javascript" charset="utf-8"></script>
+
+
+	</head>
+	<body>
+		
+		<script type="text/x-template" id="sun">
+			<div class="center">
+				<transition name="flip" name="in-out">
+					<!--child-->
+					<router-view></router-view>
+				</transition>
+			</div>
+		</script>
+		
+		<div id="app" class="app">
+			<nav class="header flexbox">
+				<div class="logo">
+					<div class="logo-left">
+						<img src="imgs/logo.png"/><span class="title">优速快递</span>
+					</div>
+				</div>
+				<div class="header-right">
+					<i class="iconfont uce-cancel icon-cancel"></i>
+				</div>
+			</nav>
+
+			<article class="active">
+				<nav class="aside">
+					<ul class="xza-menulist">
+						<li>
+							<router-link to="/main" class="list-title">
+								<i class="iconfont uce-home"></i><span>首页</span>
+							</router-link>
+						</li>
+
+						<asidemenu v-for="item in menus" :data="item" ></asidemenu>
+						<asidemenu v-for="item in example" :data="item" ></asidemenu>
+
+					</ul>
+				</nav>
+
+				<!--father-->
+				<router-view></router-view>
+			</article>
+
+		</div>
+
+		
+		<script>
+
+			// 定义路由
+			// 每个路由应该映射一个组件。 其中"component" 可以是
+			// 通过 Vue.extend() 创建的组件构造器，
+			// 或者，只是一个组件配置对象。
+			const routes = [
+			  	{ 
+			  		path: '/',
+		  		 	redirect: '/main',//默认重定向到子路由a
+			  		component: { template:'#sun'},
+			  		children:[
+			  			{
+			  				path:'/main',
+			  				name:'main',
+			  				component:{
+			  					template:tpl('tpls/home.html')
+			  				}
+			  			},
+			  			{
+			  				path:'/child/:menuid',
+			  				name:'child',
+			  				component:{
+			  					template:tpl('tpls/child.html')
+			  				}
+		  				}
+			  		]
+		 		},
+				{
+					path: '/example/:key',
+					component: mdlExample
+				},
+		 		{
+		 			path:'*',
+		 			redirect: '/main'
+		 		}
+			]
+			
+			const router = new VueRouter({
+			  	routes: routes
+			})
+			
+			var app = new Vue({
+			  	router,
+			  	data:{
+					menus:menus,
+					example:example,
+					dialogVisible: false
+			  	},
+			  	mounted(){
+			  		
+			  	},
+			  	methods:{
+					/*route:function(item){
+						//router.push({name:'child',params:{'menuid':item.id}})
+						//router.push('/child/'+item.text)
+					}*/
+			  	}
+			}).$mount('#app')
+		</script>
+	</body>
+</html>

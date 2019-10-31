@@ -1,0 +1,320 @@
+<div>
+	<div v-if="$route.params.key=='buttons'">
+		<h2>按钮</h2>
+		<el-button>默认按钮</el-button>
+		<el-button type="primary" :disabled="true">主要按钮</el-button>
+		<el-button type="text">文字按钮</el-button>
+		<br />
+		
+		<h2>彩色按钮</h2>
+	    <el-button type="success">成功按钮</el-button>
+	    <el-button type="warning">警告按钮</el-button>
+	    <el-button type="danger">危险按钮</el-button>
+	    <el-button type="info">信息按钮</el-button>
+		<br />
+	    <el-button :plain="true" type="success">成功按钮</el-button>
+	    <el-button :plain="true" type="warning">警告按钮</el-button>
+	    <el-button :plain="true" type="danger">危险按钮</el-button>
+	    <el-button :plain="true" type="info">信息按钮</el-button>
+		<br />
+		
+		<h2>图标按钮</h2>
+		<el-button type="primary" icon="edit"></el-button>
+		<el-button type="primary" icon="share"></el-button>
+		<el-button type="primary" icon="delete"></el-button>
+		<el-button type="primary" icon="search">搜索</el-button>
+		<el-button type="primary">上传<i class="el-icon-upload el-icon--right"></i></el-button>
+		<br />
+		
+		<h2>按钮组</h2>
+		<el-button-group>
+		  <el-button type="primary" icon="arrow-left">上一页</el-button>
+		  <el-button type="primary">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
+		</el-button-group>
+		<el-button-group>
+		  <el-button type="primary" icon="edit"></el-button>
+		  <el-button type="primary" icon="share"></el-button>
+		  <el-button type="primary" icon="delete"></el-button>
+		</el-button-group>
+	</div>
+	
+	<div v-if="$route.params.key=='input'">
+		<div style="width: 350px;">
+			<el-input placeholder="请输入内容" v-model="input"></el-input>
+			<el-input placeholder="请输入内容" v-model="input" :disabled="true"></el-input>
+			<el-input placeholder="请输入内容" v-model="input" icon="search" :on-icon-click="handleIconClick"></el-input>
+			<el-input type="textarea" autosize placeholder="请输入内容" v-model="input"></el-input>
+			<el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="input"></el-input>
+			{{input}}
+		
+			<div style="margin-top: 15px;">
+			  <el-input placeholder="请输入内容">
+			    <template slot="prepend">Http://</template>
+			  </el-input>
+			</div>
+			
+			<div style="margin-top: 15px;">
+			  <el-input placeholder="请输入内容">
+			    <template slot="append">.com</template>
+			  </el-input>
+			</div>
+			
+			<div style="margin-top: 15px;">
+			  <el-input placeholder="请输入内容">
+			    <el-select v-model="select" slot="prepend" placeholder="请选择" style="width: 100px;">
+			      <el-option label="餐厅名" value="1"></el-option>
+			      <el-option label="订单号" value="2"></el-option>
+			      <el-option label="用户电话" value="3"></el-option>
+			    </el-select>
+			    <el-button slot="append" icon="search"></el-button>
+			  </el-input>
+			  select：{{select}}
+			</div>
+			
+		</div>
+	</div>
+	
+	
+	<div v-if="$route.params.key=='select'">
+		<template>
+		  <el-select v-model="value" placeholder="普通选择框">
+		    <el-option
+		      v-for="item in options"
+		      :key="item.value"
+		      :label="item.label"
+		      :value="item.value"
+	       	  :disabled="item.disabled">
+		    </el-option>
+		  </el-select>
+		</template>
+		<template>
+		  <el-select v-model="value" clearable placeholder="可清楚选择框">
+		    <el-option
+		      v-for="item in options"
+		      :key="item.value"
+		      :label="item.label"
+		      :value="item.value"
+	       	  :disabled="item.disabled">
+		    </el-option>
+		  </el-select>
+		</template>
+		{{value}}
+		<br />
+		<template>
+		  <el-select v-model="value2" multiple placeholder="可多选">
+		    <el-option
+		      v-for="item in options"
+		      :key="item.value"
+		      :label="item.label"
+		      :value="item.value">
+		    </el-option>
+		  </el-select>
+		</template>
+		{{value2}}
+		<br />
+		<template>
+		  <el-select v-model="value3" filterable clearable placeholder="可搜索">
+		    <el-option
+		      v-for="item in options"
+		      :key="item.value"
+		      :label="item.label"
+		      :value="item.value">
+		    </el-option>
+		  </el-select>
+		</template>
+		{{value3}}
+	</div>
+	
+	
+	<div v-if="$route.params.key=='picker'">
+		<template>
+			<el-time-select
+			  v-model="time1"
+			  :picker-options="{
+			    start: '08:30',
+			    step: '00:15',
+			    end: '18:30'
+			  }"
+			  placeholder="固定时间">
+			</el-time-select>
+			{{time1}}
+		</template>
+
+		<br />
+		<template>
+		  <el-time-picker
+		    v-model="time2"
+		    :picker-options="{
+		      selectableRange: '18:30:00 - 20:30:00'
+		    }"
+		    placeholder="任意时间点">
+		  </el-time-picker>
+		  {{time2}}
+		</template>
+		
+		<br />
+		<template>
+		  <div class="block">
+		    <el-date-picker
+		      v-model="picker0"
+		      type="date"
+		      placeholder="选择日期"
+		      :picker-options="pickerOptions0">
+		    </el-date-picker>
+		  </div>
+		  {{picker0}}
+		</template>
+		<br />
+		
+		<template>
+			<el-date-picker
+		      v-model="picker1"
+		      type="daterange"
+		      placeholder="选择日期范围">
+		    </el-date-picker>
+		    {{picker1}}
+		</template>
+		
+		<br />
+		<template>
+			<div class="block">
+			  <span class="demonstration">周</span>
+			  <el-date-picker
+			    v-model="picker2"
+			    type="week"
+			    format="yyyy 第 WW 周"
+			    placeholder="选择周">
+			  </el-date-picker>
+			</div>
+			<div class="block">
+			  <span class="demonstration">月</span>
+			  <el-date-picker
+			    v-model="picker3"
+			    type="month"
+			    placeholder="选择月">
+			  </el-date-picker>
+			</div>
+			<div class="block">
+			  <span class="demonstration">年</span>
+			  <el-date-picker
+			    v-model="picker4"
+			    align="right"
+			    type="year"
+			    placeholder="选择年">
+			  </el-date-picker>
+			</div>
+		</template>
+		
+	</div>
+	
+	<div v-if="$route.params.key=='notice'">
+		<template>
+		  <el-alert
+		    title="成功提示的文案"
+		    type="success">
+		  </el-alert>
+		  <el-alert
+		    title="消息提示的文案"
+		    type="info">
+		  </el-alert>
+		  <el-alert
+		    title="警告提示的文案"
+		    type="warning">
+		  </el-alert>
+		  <el-alert
+		    title="错误提示的文案"
+		    type="error">
+		  </el-alert>
+		</template>
+		
+		<template>
+		  <el-alert
+		    title="成功提示的文案"
+		    type="success"
+		    description="文字说明文字说明文字说明文字说明文字说明文字说明"
+		    show-icon>
+		  </el-alert>
+		  <el-alert
+		    title="消息提示的文案"
+		    type="info"
+		    description="文字说明文字说明文字说明文字说明文字说明文字说明"
+		    show-icon>
+		  </el-alert>
+		  <el-alert
+		    title="警告提示的文案"
+		    type="warning"
+		    description="文字说明文字说明文字说明文字说明文字说明文字说明"
+		    show-icon>
+		  </el-alert>
+		  <el-alert
+		    title="错误提示的文案"
+		    type="error"
+		    description="文字说明文字说明文字说明文字说明文字说明文字说明"
+		    show-icon>
+		  </el-alert>
+		</template>
+		
+		<template>
+  			<el-button :plain="true" @click="open">消息</el-button>
+	  		<el-button :plain="true" @click="open2">成功</el-button>
+	  		<el-button :plain="true" @click="open3">警告</el-button>
+	  		<el-button :plain="true" @click="open4">错误</el-button>
+	  		<br />
+			<el-button :plain="true" @click="open5">MessageBox</el-button>
+			<br />
+			<el-button :plain="true" @click="open6">成功</el-button>
+	  		<el-button :plain="true" @click="open7">警告</el-button>
+	  		<el-button :plain="true" @click="open8">消息</el-button>
+	  		<el-button :plain="true" @click="open9">错误</el-button>
+	  		<br />
+	  		<el-button type="primary" @click="dialogVisible = true"> Dialog</el-button>
+			<el-dialog
+			  title="提示"
+			  :visible.sync="dialogVisible"
+			  size="tiny"
+			  :before-close="handleClose">
+			  <span>这是一段信息</span>
+			  <span slot="footer" class="dialog-footer">
+			    <el-button @click="dialogVisible = false">取 消</el-button>
+			    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+			  </span>
+			</el-dialog>
+		</template>
+	</div>
+	
+	
+	<div v-if="$route.params.key=='table'">
+		<template>
+		    <el-table
+		      :data="tableData"
+		      :stripe="true"
+		      border
+		      height="250"
+		      style="width: 100%">
+		      <el-table-column
+		        prop="date"
+		        label="日期"
+		        width="180">
+		      </el-table-column>
+		      <el-table-column
+		        prop="name"
+		        label="姓名"
+		        width="180">
+		      </el-table-column>
+		      <el-table-column
+		        prop="address"
+		        label="地址">
+		      </el-table-column>
+		    </el-table>
+		    <el-pagination
+			  @size-change="handleSizeChange"
+			  @current-change="handleCurrentChange"
+			  :current-page.sync="currentPage1"
+			  :page-sizes="[100, 200, 300, 400]"
+			  :page-size="100"
+			  layout="sizes, prev, pager, next"
+			  :total="1000">
+			</el-pagination>
+	  	</template>
+	</div>
+</div>
